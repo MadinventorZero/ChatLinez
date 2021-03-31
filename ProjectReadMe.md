@@ -12,9 +12,9 @@ to bring it into their personal and job related projects.
 ● What are your core features? 
 (MVP scope)
 Quite alot of core features are required to get this up and running. I may not get to them all. In descending priority:
- - Functioning CRUD Database running on MongoDB
+ - Functioning CRUD Database running on MongoDB (Verified connection with online MongoDB server and got the C working of CRUD 3.30.2021)
  - Corresponding React/Redux
- - Webpack server to handle production/development environments
+ - Webpack server to handle production/development environments (Unfortunately, this came first. So far resolved 3.30.2021)
  - Server routing to manage requests and successfully coordinate specific routes
  - Front end client with input fields and fetch requests to both the database & AWS blockchain service running Etherium nodes
  - AWS integration at some point to their Etherium node instances

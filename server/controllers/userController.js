@@ -15,16 +15,14 @@ userController.getAllUsers = (req, res, next) => {
 
 userController.createUser = (req, res, next) => {
   console.log(req.body);
-  const { username, password } = req.body;
-  User
-    .find({username: username})
-    .then(users => {
-      users.forEach(currObj => {
-        if (currObj.password === password) {
-          res.locals.userId = currObj._id.toString();
-          return next();
-        }
-      });
+  const newUser = new User(req.body);
+  newUser
+    .save()
+    .then(items => {
+      console.log('New User succesfully saved!!!')
+      next()
     })
     .catch(err => next(err));
 }
+
+module.exports = userController;

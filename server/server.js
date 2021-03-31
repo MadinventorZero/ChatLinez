@@ -8,14 +8,16 @@ const app = express();
 const PORT = 3010;
 
 const apiRouter = require('./routes/api.js');
+const createUserRouter = require('./routes/createUser.js')
 
-// Connection info for mongoDB
+// Connection info for mongoDB with recommended options after erroring out a bit
 const mongoURI = 'mongodb+srv://madinventor:Foster367837@cluster0.a9sua.mongodb.net/chatLinez?retryWrites=true&w=majority';
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Automatically parse urlencoded body content
 app.use(bodyParser.urlencoded({extended: true}))
 
+// When running on node server and in production environment serve up our index.html
 if (process.env.NODE_ENV === 'production') {
   // Handle open ended path arguments by returning our basic index.html file
   app.get('/', (req, res) => {
@@ -25,6 +27,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // Route handling for known routes
 app.use('/api', apiRouter);
+app.use('/api/createUser', createUserRouter);
 
 // Route handler for any requests to an unknown route
 app.use('*', (req, res) => {
