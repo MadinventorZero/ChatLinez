@@ -6,22 +6,32 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node server/server.js",
     "build": "cross-env NODE_ENV=production webpack",
-    "dev": "cross-env NODE_ENV=development concurrently \"webpack serve --open\" \" nodemon server/server.js\""
+    "dev": "cross-env NODE_ENV=development concurrently \"webpack serve --open --inline\" \" nodemon server/server.js\""
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "build",
+      "client"
+    ]
   },
   "auther": "darylfoster",
   "license": "MIT",
   "dependencies": {
+    "browserify": "^17.0.0",
     "express": "^4.17.1",
     "mongo-tools": "^1.0.0",
     "mongodb": "^3.6.5",
     "mongoose": "^5.12.2",
     "node-fetch": "^2.6.1",
     "node-sass": "^5.0.0",
+    "path": "^0.12.7",
     "react": "^17.0.2",
     "react-hot-loader": "^4.13.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "sass-loader": "^11.0.1"
+    "resolve-cwd": "^3.0.0",
+    "sass-loader": "^11.0.1",
+    "stream": "^0.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.13.14",

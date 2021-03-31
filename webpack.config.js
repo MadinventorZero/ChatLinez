@@ -2,22 +2,22 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  entry: {
-    splash: path.resolve(__dirname, './client/index.html')
-  },
+  context: path.resolve(__dirname),
+  entry: './client/index.js',
   output: {
-    path: path.resolve(__dirname, 'project'),
-    publicPath: '/',
-    filename: 'bundle.js'
+    path: path.resolve(__dirname, './client'),
+    filename: 'index.js'
   },  
   mode: process.env.NODE_ENV,
   devServer: {
-    contentBase: path.resolve(__dirname, 'project'),
-    compress: true,
+    contentBase: path.resolve(__dirname, './client'),
+    compress: false,
     port:9010,
+    hot: true,
+    publicPath: '/',
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'http://localhost:3010',
         secure: false,
       }
     }
@@ -36,6 +36,9 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react']
+          }
         },
       },
       {
@@ -46,9 +49,21 @@ module.exports = {
     ]
 
   },
-  resolveLoader: {
+  resolve: {
+    mainFields: ['browser', 'module', 'main'],
     modules: ['node_modules'],
     extensions: ['.js', '.json'],
-    mainFields: ['loader', 'main'],
+    // This fallback option accounts for the lack of polyfill in webpack 5. Without these settings, a litany of errors follows.
+    fallback: {
+      "fs": false,
+      "tls": false,
+      "net": false,
+      "path": false,
+      "zlib": false,
+      "http": false,
+      "https": false,
+      "stream": false,
+      "crypto": false,
+    }
   },
 }

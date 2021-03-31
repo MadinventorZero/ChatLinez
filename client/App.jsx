@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom'
+import { render } from '../server/server';
 
 class App extends Component {
   constructor(props) {
@@ -24,4 +25,5 @@ class App extends Component {
   }
 }
 
+render(<App />, document.querySelector('app'))
 export default App;
