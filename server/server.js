@@ -15,19 +15,22 @@ const mongoURI = 'mongodb+srv://madinventor:Foster367837@cluster0.a9sua.mongodb.
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Automatically parse urlencoded body content
-app.use(bodyParser.urlencoded({extended: true}))
+// app.use(bodyParser.urlencoded({extended: true}))
 
 // When running on node server and in production environment serve up our index.html
 if (process.env.NODE_ENV === 'production') {
   // Handle open ended path arguments by returning our basic index.html file
   app.get('/', (req, res) => {
-    return res.status(200).sendFile(path.resolve(__dirname, '../client/index.html'))
+    return res.status(200).sendFile(path.resolve(__dirname, '../index.html'))
   });
 }
 
 // Route handling for known routes
 app.use('/api', apiRouter);
 app.use('/api/createUser', createUserRouter);
+app.get('/dist', (req, res) => {
+  return res.status(200).sendFile('/dist/build.js')
+})
 
 // Route handler for any requests to an unknown route
 app.use('*', (req, res) => {

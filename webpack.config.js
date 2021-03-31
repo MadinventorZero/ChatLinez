@@ -2,19 +2,20 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  context: path.resolve(__dirname),
   entry: './client/index.js',
   output: {
-    path: path.resolve(__dirname, './client'),
-    filename: 'index.js'
+    path: path.resolve(__dirname, './dist'),
+    publicPath: '/',
+    filename: 'build.js'
   },  
   mode: process.env.NODE_ENV,
   devServer: {
-    contentBase: path.resolve(__dirname, './client'),
-    compress: false,
-    port:9010,
+    contentBase: path.resolve(__dirname, './dist'),
+    port: 9010,
     hot: true,
     publicPath: '/',
+    inline: true,
+    historyApiFallback: true,
     proxy: {
       '/api': {
         target: 'http://localhost:3010',
@@ -24,13 +25,6 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /.(html)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'html-loader',
-        },
-      },
       {
         test: /.(js|jsx)$/,
         exclude: /node_modules/,
@@ -52,18 +46,39 @@ module.exports = {
   resolve: {
     mainFields: ['browser', 'module', 'main'],
     modules: ['node_modules'],
-    extensions: ['.js', '.json'],
+    extensions: ['.js', '.jsx', '.json'],
     // This fallback option accounts for the lack of polyfill in webpack 5. Without these settings, a litany of errors follows.
     fallback: {
-      "fs": false,
-      "tls": false,
-      "net": false,
-      "path": false,
-      "zlib": false,
-      "http": false,
-      "https": false,
-      "stream": false,
-      "crypto": false,
+      assert: "assert",
+      buffer: "buffer",
+      console: "console-browserify",
+      constants: "constants-browserify",
+      crypto: "crypto-browserify",
+      domain: "domain-browser",
+      events: "events",
+      fs: "fs.realpath",
+      http: "stream-http",
+      https: "https-browserify",
+      import: "import-local",
+      net: "net-browserify",
+      path: "path-browserify",
+      punycode: "punycode",
+      process: "process/browser",
+      querystring: "querystring-es3",
+      stream: "stream-browserify",
+      _stream_duplex: "readable-stream/duplex",
+      _stream_passthrough: "readable-stream/passthrough",
+      _stream_readable: "readable-stream/readable",
+      _stream_transform: "readable-stream/transform",
+      _stream_writable: "readable-stream/writable",
+      string_decoder: "string_decoder",
+      sys: "util",
+      timers: "timers-browserify",
+      tty: "tty-browserify",
+      url: "url",
+      util: require.resolve("util"),
+      vm: "vm-browserify",
+      zlib: "browserify-zlib"
     }
   },
 }
