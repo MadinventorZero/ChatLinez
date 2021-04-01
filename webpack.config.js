@@ -49,13 +49,15 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'index.html',
-      favicon: 'public/favicon.ico'
-    })
+    }),
   ],
   resolve: {
     mainFields: ['browser', 'module', 'main'],
     modules: ['node_modules'],
     extensions: ['.js', '.jsx', '.json'],
+    alias: {
+      process: 'process'
+    },
     // This fallback option accounts for the lack of polyfill in webpack 5. Without these settings, a litany of errors follows.
     fallback: {
       assert: "assert",
@@ -72,7 +74,7 @@ module.exports = {
       net: "net-browserify",
       path: "path-browserify",
       punycode: "punycode",
-      process: "process/browser",
+      process: "process",
       querystring: "querystring-es3",
       stream: "stream-browserify",
       _stream_duplex: "readable-stream/duplex",

@@ -2,11 +2,11 @@
   "name": "solo_project_chat_blockchain",
   "version": "1.0.0",
   "description": "An attempt to modularize chat systems and utilize AWS Ethereum blockchain integrations to handle chat transactions",
-  "main": "server/server.js",
+  "main": "client/index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node server/server.js",
-    "build": "cross-env NODE_ENV=production webpack",
-    "dev": "cross-env NODE_ENV=development concurrently \"webpack serve --open --hot --inline --progress --content-base ./\" \" nodemon ./server/server.js\""
+    "start": "NODE_ENV=production node server/server.js",
+    "build": "NODE_ENV=production webpack",
+    "dev": "concurrently \"webpack serve --node-env=development --open --hot --inline --progress --content-base ./\" \" nodemon ./server/server.js\""
   },
   "nodemonConfig": {
     "ignore": [
