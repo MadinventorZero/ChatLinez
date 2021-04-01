@@ -6,15 +6,19 @@ const userController = require('../controllers/userController');
 const router = express.Router();
 
 // Route to create a new line
-router.post('/createNewLinez', (req, res) => {
-  console.log("You made it to this point!!!!")
+router.post('/createNewLinez', lineController.createNewLinez, (req, res) => {
   return res.status(200).json("Congratulations and you made it to createNewLinez")
 })
 
-// Route to verify that a line exists
-router.get('/verifyLinez', (req, res) => {
+// Route to add a user to an existing line
+router.post('/addLinezUser', (req, res) => {
   console.log("You made it to this point!!!!")
-  return res.status(200).json("Congratulations and you made it to verifyLinez")
+  return res.status(200).json("Congratulations and you made it to addLinezUser")
+})
+
+// Route to verify that a line exists
+router.get('/verifyLinez', lineController.verifyLinez, (req, res) => {
+  return res.status(200).json({Exists: res.locals.lineExists, Verified: res.locals.lineVerified, Message: res.locals.lineMessage})
 })
 
 // Route to delete an existing line
