@@ -8,7 +8,8 @@ const app = express();
 const PORT = 3010;
 
 const apiRouter = require('./routes/api.js');
-const userRouter = require('./routes/users.js')
+const userRouter = require('./routes/users.js');
+const linezRouter = require('./routes/linez.js');
 
 // Connection info for mongoDB with recommended options after erroring out a bit
 const mongoURI = 'mongodb+srv://madinventor:Foster367837@cluster0.a9sua.mongodb.net/chatLinez?retryWrites=true&w=majority';
@@ -28,6 +29,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 // Route handling for known routes
 app.use('/api', apiRouter);
 app.use('/api/users/', userRouter);
+app.use('/api/linez/', linezRouter);
 app.get('/dist', (req, res) => {
   return res.status(200).sendFile('/dist/build.js')
 })
