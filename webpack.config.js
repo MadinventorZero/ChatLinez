@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path');
 
 module.exports = {
@@ -9,6 +10,7 @@ module.exports = {
     filename: 'build.js'
   },  
   mode: process.env.NODE_ENV,
+  devtool: 'inline-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, './dist'),
     port: 9010,
@@ -16,6 +18,7 @@ module.exports = {
     publicPath: '/',
     inline: true,
     historyApiFallback: true,
+    open: true,
     proxy: {
       '/api': {
         target: 'http://localhost:3010',
@@ -43,6 +46,12 @@ module.exports = {
     ]
 
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'index.html',
+      favicon: 'public/favicon.ico'
+    })
+  ],
   resolve: {
     mainFields: ['browser', 'module', 'main'],
     modules: ['node_modules'],
