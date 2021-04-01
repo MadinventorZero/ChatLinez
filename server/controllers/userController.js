@@ -25,6 +25,7 @@ userController.verifyUser = (req, res, next) => {
       res.locals.exists = false;
       res.locals.verified = false;
       res.locals.message = 'User does not exist'
+      // Progressive conditional check to both see if the user exists and if the password is valid
       for (const user of users) {
         if (user.username === username) {
           res.locals.exists = true;
@@ -56,13 +57,16 @@ userController.createUser = (req, res, next) => {
 
 userController.getUserDetail = (req, res, next) => {
   console.log(req.body);
+  const { username, password } = req.body;
   try{
-    User
-    .find()
-    .then(items => {
-      console.log('New User succesfully saved!!!', items);
-      return next();
-    })
+    if (res.locals.verified === true) {
+      User
+      .find({username: username, password:password})
+      .then(dataLookup => {
+        res.locals.userDataDetail = dataLookup;
+        return next();
+      })
+    } else if (res.locals.verfied === false) return next ()
   } catch(err) { return next(err)};
 }
 

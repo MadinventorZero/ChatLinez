@@ -11,12 +11,11 @@ router.get('/verifyUser', userController.verifyUser, (req, res) => {
   return res.status(200).json({UserExists: res.locals.exists, UserVerified: res.locals.verified, Message: res.locals.message})
 })
 
-router.get('/getUserDetail', userController.verifyUser, (req, res) => {
-  console.log('Congratulations You made it to this point - getUserDetail!!!!');
-  return res.status(200).json('Congratulations You made it to this point!!!!')
+router.get('/getUserDetail', userController.verifyUser, userController.getUserDetail, (req, res) => {
+  return res.status(200).json(res.locals.userDataDetail)
 })
 
-router.get('/updateUser', (req, res) => {
+router.get('/updateUserPassword', (req, res) => {
   console.log('Congratulations You made it to this point - updateUser!!!!');
   return res.status(200).json('Congratulations You made it to this point!!!!')
 })
