@@ -61,9 +61,39 @@ userController.getUserDetail = (req, res, next) => {
   try{
     if (res.locals.verified === true) {
       User
-      .find({username: username, password:password})
+      .find({username: username, password: password})
       .then(dataLookup => {
         res.locals.userDataDetail = dataLookup;
+        return next();
+      })
+    } else if (res.locals.verfied === false) return next ()
+  } catch(err) { return next(err)};
+}
+
+userController.updateUserPassword = (req, res, next) => {
+  console.log(req.body);
+  const { username, password, newpassword } = req.body;
+  try{
+    if (res.locals.verified === true) {
+      User
+      .findOneAndUpdate({username: username, password: password}, {password: newpassword}, {new: true})
+      .then(updatedUser => {
+        res.locals.userUpdate = updatedUser;
+        return next();
+      })
+    } else if (res.locals.verfied === false) return next ()
+  } catch(err) { return next(err)};
+}
+
+userController.deleteUser = (req, res, next) => {
+  console.log(req.body);
+  const { username, password, deleteConfirmation} = req.body;
+  try{
+    if (res.locals.verified === true && deleteConfirmation === 'delete') {
+      User
+      .findOneAndDelete({username: username, password: password}, {select: {username: username}})
+      .then(deletedUser => {
+        res.locals.userDeletion = deletedUser;
         return next();
       })
     } else if (res.locals.verfied === false) return next ()

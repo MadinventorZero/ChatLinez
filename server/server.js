@@ -12,7 +12,7 @@ const userRouter = require('./routes/users.js')
 
 // Connection info for mongoDB with recommended options after erroring out a bit
 const mongoURI = 'mongodb+srv://madinventor:Foster367837@cluster0.a9sua.mongodb.net/chatLinez?retryWrites=true&w=majority';
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true });
 
 // Automatically parse urlencoded body content
 app.use(bodyParser.urlencoded({extended: true}))
