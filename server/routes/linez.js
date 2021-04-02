@@ -7,13 +7,12 @@ const router = express.Router();
 
 // Route to create a new line
 router.post('/createNewLinez', lineController.createNewLinez, (req, res) => {
-  return res.status(200).json("Congratulations and you made it to createNewLinez")
+  return res.status(200).json(`Congratulations you created a New Linez, here is your LinezId: ${res.locals.linezId}`)
 })
 
 // Route to add a user to an existing line
-router.post('/addLinezUser', (req, res) => {
-  console.log("You made it to this point!!!!")
-  return res.status(200).json("Congratulations and you made it to addLinezUser")
+router.post('/addLinezUser', userController.verifyUser, lineController.verifyLinez, userController.addLinezUser, (req, res) => {
+  return res.status(200).json(res.locals.updatedLinez)
 })
 
 // Route to verify that a line exists
@@ -22,21 +21,18 @@ router.get('/verifyLinez', lineController.verifyLinez, (req, res) => {
 })
 
 // Route to delete an existing line
-router.get('/deleteLinez', (req, res) => {
-  console.log("You made it to this point!!!!")
-  return res.status(200).json("Congratulations and you made it to deleteLinez")
+router.get('/deleteLinez', lineController.verifyLinez, lineController.deleteLinez, (req, res) => {
+  return res.status(200).json(res.locals.lineDeletion)
 })
 
 // Route to add a new message to the line
-router.post('/addLinezMessage', (req, res) => {
-  console.log("You made it to this point!!!!")
-  return res.status(200).json("Congratulations and you made it to addLinezMessage")
+router.post('/addLinezMessage', lineController.verifyLinez, lineController.addLinezMessage, (req, res) => {
+  return res.status(200).json(res.locals.updatedLinezMessages)
 })
 
 // Route to get the existing message on the line
-router.get('/getLinezMessages', (req, res) => {
-  console.log("You made it to this point!!!!")
-  return res.status(200).json("Congratulations and you made it to getLinezMessages")
+router.get('/getLinezMessages', lineController.verifyLinez, lineController.getLinezMessages, (req, res) => {
+  return res.status(200).json(res.locals.linezMessages)
 })
 
 module.exports = router;

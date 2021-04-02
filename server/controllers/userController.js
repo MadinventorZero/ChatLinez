@@ -100,4 +100,23 @@ userController.deleteUser = (req, res, next) => {
   } catch(err) { return next(err)};
 }
 
+// Method function to add Linez to a User
+userController.addLinezUser = (req, res, next) => {
+  console.log(req.body);
+  console.log("Reached Controller, addLinezUser");
+  const { username, password, lineId } = req.body;
+  try{
+    if (res.locals.lineVerified === true && res.locals.verified === true) {
+      console.log('made it here!')
+      User
+      .findOneAndUpdate({username: username, password: password}, {$inc: {'linezCount': 1}, $push: {'linez': lineId}}, {new: true})
+      .then(updatedUser => {
+        const {linez} = updatedUser
+        res.locals.updatedLinez = linez;
+        return next();
+      })
+    } else if (res.locals.lineVerfied === false || res.locals.verified === false) return next ()
+  } catch(err) { return next(err)};
+}
+
 module.exports = userController;
