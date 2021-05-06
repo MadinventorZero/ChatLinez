@@ -1,2 +1,2 @@
-# Solo_Project_Chat_Blockchain
+# ChatLinez
 A modular chat system using Express, React, MongoDB, Webpack, &amp; AWS Ethereum Blockchain service
